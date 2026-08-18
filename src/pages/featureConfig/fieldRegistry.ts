@@ -39,26 +39,19 @@ const OAUTH_PROVIDERS: ReadonlyArray<{ key: string; label: string }> = [
   { key: "wechat", label: "WeChat" },
 ];
 
+// Section order: most frequently adjusted settings first (per project owner).
 export const FIELD_REGISTRY: FieldDef[] = [
-  ...OAUTH_PROVIDERS.map(
-    (provider): FieldDef => ({
-      jsonPointer: `/identity/oauth/providers/${provider.key}/disabled`,
-      label: `Disable ${provider.label} sign-in`,
-      control: "boolean",
-      section: "Identity — OAuth Providers",
-    })
-  ),
   {
-    jsonPointer: "/ui/white_labeling/disabled",
-    label: "Disable white labeling",
+    jsonPointer: "/oauth/client/custom_ui_enabled",
+    label: "Custom UI enabled",
     control: "boolean",
-    section: "UI",
+    section: "OAuth Client",
   },
   {
-    jsonPointer: "/ui/phone_input/allowlist",
-    label: "Phone input country allowlist",
-    control: "countryList",
-    section: "UI",
+    jsonPointer: "/oauth/client/app2app_enabled",
+    label: "App2App enabled",
+    control: "boolean",
+    section: "OAuth Client",
   },
   {
     jsonPointer: "/oauth/client/maximum",
@@ -73,34 +66,16 @@ export const FIELD_REGISTRY: FieldDef[] = [
     section: "OAuth Client",
   },
   {
-    jsonPointer: "/oauth/client/custom_ui_enabled",
-    label: "Custom UI enabled",
+    jsonPointer: "/ui/white_labeling/disabled",
+    label: "Disable white labeling",
     control: "boolean",
-    section: "OAuth Client",
+    section: "UI",
   },
   {
-    jsonPointer: "/oauth/client/app2app_enabled",
-    label: "App2App enabled",
-    control: "boolean",
-    section: "OAuth Client",
-  },
-  {
-    jsonPointer: "/hook/blocking_handler/maximum",
-    label: "Maximum blocking hook handlers",
-    control: "number",
-    section: "Hook",
-  },
-  {
-    jsonPointer: "/hook/non_blocking_handler/maximum",
-    label: "Maximum non-blocking hook handlers",
-    control: "number",
-    section: "Hook",
-  },
-  {
-    jsonPointer: "/audit_log/retrieval_days",
-    label: "Audit log retrieval days",
-    control: "number",
-    section: "Audit Log",
+    jsonPointer: "/ui/phone_input/allowlist",
+    label: "Phone input country allowlist",
+    control: "countryList",
+    section: "UI",
   },
   {
     jsonPointer: "/messaging/custom_sms_provider_disabled",
@@ -126,4 +101,30 @@ export const FIELD_REGISTRY: FieldDef[] = [
     control: "boolean",
     section: "Fraud Protection",
   },
+  {
+    jsonPointer: "/audit_log/retrieval_days",
+    label: "Audit log retrieval days",
+    control: "number",
+    section: "Audit Log",
+  },
+  {
+    jsonPointer: "/hook/blocking_handler/maximum",
+    label: "Maximum blocking hook handlers",
+    control: "number",
+    section: "Hook",
+  },
+  {
+    jsonPointer: "/hook/non_blocking_handler/maximum",
+    label: "Maximum non-blocking hook handlers",
+    control: "number",
+    section: "Hook",
+  },
+  ...OAUTH_PROVIDERS.map(
+    (provider): FieldDef => ({
+      jsonPointer: `/identity/oauth/providers/${provider.key}/disabled`,
+      label: `Disable ${provider.label} sign-in`,
+      control: "boolean",
+      section: "Identity — OAuth Providers",
+    })
+  ),
 ];
