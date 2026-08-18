@@ -42,13 +42,14 @@ export function formatDisplayValue(
     if (v == null) return "No limit";
     if (Array.isArray(v)) {
       if (v.length === 0) return "No limit";
-      return v
-        .map((rule) =>
-          isUsageLimitRule(rule)
-            ? `${rule.quota}/${rule.period} (${rule.action})`
-            : String(rule)
-        )
-        .join(", ");
+      const lines = v.map((rule) =>
+        isUsageLimitRule(rule)
+          ? `${rule.quota}/${rule.period} (${rule.action})`
+          : String(rule)
+      );
+      // A newline per rule reads far more clearly than a comma-joined run-on
+      // once there's more than one -- see .planValue's white-space: pre-line.
+      return lines.length > 1 ? lines.join("\n") : lines[0];
     }
   }
   if (v === undefined || v === null) return "—";

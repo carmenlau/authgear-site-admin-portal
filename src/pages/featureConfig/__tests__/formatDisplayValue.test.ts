@@ -56,11 +56,11 @@ test("usageLimitList: formats each rule as quota/period (action)", () => {
   ).toBe("10000/month (block)");
 });
 
-test("usageLimitList: joins multiple rules with a comma", () => {
+test("usageLimitList: joins multiple rules with a newline, not a comma", () => {
   expect(
     formatDisplayValue("usageLimitList", [
       { quota: 10000, period: "month", action: "block" },
       { quota: 500, period: "day", action: "alert" },
     ])
-  ).toBe("10000/month (block), 500/day (alert)");
+  ).toBe("10000/month (block)\n500/day (alert)");
 });
