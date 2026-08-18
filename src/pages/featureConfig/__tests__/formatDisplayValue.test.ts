@@ -29,7 +29,7 @@ test("boolean/number controls keep the generic dash for nil", () => {
   expect(formatDisplayValue("number", undefined)).toBe("—");
 });
 
-test("boolean control formats true/false as Enabled/Disabled", () => {
-  expect(formatDisplayValue("boolean", true)).toBe("Enabled");
-  expect(formatDisplayValue("boolean", false)).toBe("Disabled");
+test("boolean control formats true/false as Yes/No", () => {
+  expect(formatDisplayValue("boolean", true)).toBe("Yes");
+  expect(formatDisplayValue("boolean", false)).toBe("No");
 });

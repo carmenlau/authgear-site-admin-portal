@@ -24,6 +24,11 @@ export function formatDisplayValue(
     }
   }
   if (v === undefined || v === null) return "—";
-  if (typeof v === "boolean") return v ? "Enabled" : "Disabled";
+  // "Yes"/"No" rather than "Enabled"/"Disabled": most fields here are
+  // negative-polarity "disabled" flags, where true means the plan disables
+  // the feature -- "Enabled" for true would say the opposite of what the
+  // field means. Yes/No answers the field's label directly regardless of
+  // polarity, matching BooleanFieldControl's own toggle text.
+  if (typeof v === "boolean") return v ? "Yes" : "No";
   return String(v);
 }
