@@ -33,3 +33,34 @@ test("boolean control formats true/false as Yes/No", () => {
   expect(formatDisplayValue("boolean", true)).toBe("Yes");
   expect(formatDisplayValue("boolean", false)).toBe("No");
 });
+
+/**
+ * Pins that nil and an explicit empty rule list are treated identically for
+ * the usageLimitList control -- both mean "no limit enforced"
+ * (Limiter.Reserve in pkg/lib/usage/limit.go treats len(limits) == 0 as
+ * unrestricted either way), matching UsageLimitListFieldControl's own
+ * "No limit" mode label for the same value.
+ */
+
+test("usageLimitList: nil and an explicit empty list both show 'No limit'", () => {
+  expect(formatDisplayValue("usageLimitList", null)).toBe("No limit");
+  expect(formatDisplayValue("usageLimitList", undefined)).toBe("No limit");
+  expect(formatDisplayValue("usageLimitList", [])).toBe("No limit");
+});
+
+test("usageLimitList: formats each rule as quota/period (action)", () => {
+  expect(
+    formatDisplayValue("usageLimitList", [
+      { quota: 10000, period: "month", action: "block" },
+    ])
+  ).toBe("10000/month (block)");
+});
+
+test("usageLimitList: joins multiple rules with a comma", () => {
+  expect(
+    formatDisplayValue("usageLimitList", [
+      { quota: 10000, period: "month", action: "block" },
+      { quota: 500, period: "day", action: "alert" },
+    ])
+  ).toBe("10000/month (block), 500/day (alert)");
+});

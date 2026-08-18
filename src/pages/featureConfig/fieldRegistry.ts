@@ -12,7 +12,11 @@
  * `authgear-server/pkg/lib/config/feature_*.go`.
  */
 
-export type FieldControlKind = "boolean" | "number" | "countryList";
+export type FieldControlKind =
+  | "boolean"
+  | "number"
+  | "countryList"
+  | "usageLimitList";
 
 export interface FieldDef {
   jsonPointer: string;
@@ -94,6 +98,36 @@ export const FIELD_REGISTRY: FieldDef[] = [
     label: "Disable template customization",
     control: "boolean",
     section: "Messaging",
+  },
+  {
+    jsonPointer: "/usage/limits/email",
+    label: "Email usage limit",
+    control: "usageLimitList",
+    section: "Usage Limits",
+  },
+  {
+    jsonPointer: "/usage/limits/sms",
+    label: "SMS usage limit",
+    control: "usageLimitList",
+    section: "Usage Limits",
+  },
+  {
+    jsonPointer: "/usage/limits/whatsapp",
+    label: "WhatsApp usage limit",
+    control: "usageLimitList",
+    section: "Usage Limits",
+  },
+  {
+    jsonPointer: "/usage/limits/user_export",
+    label: "User export usage limit",
+    control: "usageLimitList",
+    section: "Usage Limits",
+  },
+  {
+    jsonPointer: "/usage/limits/user_import",
+    label: "User import usage limit",
+    control: "usageLimitList",
+    section: "Usage Limits",
   },
   {
     jsonPointer: "/fraud_protection/is_modifiable",

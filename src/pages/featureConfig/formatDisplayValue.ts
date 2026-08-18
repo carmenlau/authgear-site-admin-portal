@@ -1,4 +1,15 @@
 import type { FieldDef } from "./fieldRegistry";
+import type { UsageLimitRule } from "./UsageLimitListFieldControl";
+
+function isUsageLimitRule(v: unknown): v is UsageLimitRule {
+  return (
+    typeof v === "object" &&
+    v !== null &&
+    "quota" in v &&
+    "period" in v &&
+    "action" in v
+  );
+}
 
 /**
  * Formats a field's plan value for the table's read-only "Plan Config"
@@ -21,6 +32,23 @@ export function formatDisplayValue(
     if (v == null) return "Allow all countries";
     if (Array.isArray(v)) {
       return v.length === 0 ? "Allow all countries" : v.join(", ");
+    }
+  }
+  if (control === "usageLimitList") {
+    // nil and an explicit empty rule list are equivalent -- Limiter.Reserve
+    // (pkg/lib/usage/limit.go) treats len(limits) == 0 as "no limit
+    // enforced" either way, matching UsageLimitListFieldControl's own "No
+    // limit" mode label for the same value.
+    if (v == null) return "No limit";
+    if (Array.isArray(v)) {
+      if (v.length === 0) return "No limit";
+      return v
+        .map((rule) =>
+          isUsageLimitRule(rule)
+            ? `${rule.quota}/${rule.period} (${rule.action})`
+            : String(rule)
+        )
+        .join(", ");
     }
   }
   if (v === undefined || v === null) return "—";
