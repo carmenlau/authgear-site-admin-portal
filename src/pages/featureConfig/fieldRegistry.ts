@@ -46,6 +46,12 @@ const OAUTH_PROVIDERS: ReadonlyArray<{ key: string; label: string }> = [
 // Section order: most frequently adjusted settings first (per project owner).
 export const FIELD_REGISTRY: FieldDef[] = [
   {
+    jsonPointer: "/ui/white_labeling/disabled",
+    label: "Disable white labeling",
+    control: "boolean",
+    section: "UI",
+  },
+  {
     jsonPointer: "/oauth/client/custom_ui_enabled",
     label: "Custom UI enabled",
     control: "boolean",
@@ -58,28 +64,58 @@ export const FIELD_REGISTRY: FieldDef[] = [
     section: "OAuth Client",
   },
   {
-    jsonPointer: "/oauth/client/maximum",
-    label: "Maximum OAuth clients",
-    control: "number",
-    section: "OAuth Client",
-  },
-  {
     jsonPointer: "/oauth/client/soft_maximum",
     label: "Soft maximum OAuth clients",
     control: "number",
     section: "OAuth Client",
   },
   {
-    jsonPointer: "/ui/white_labeling/disabled",
-    label: "Disable white labeling",
-    control: "boolean",
-    section: "UI",
+    jsonPointer: "/oauth/client/maximum",
+    label: "Maximum OAuth clients",
+    control: "number",
+    section: "OAuth Client",
   },
   {
     jsonPointer: "/ui/phone_input/allowlist",
     label: "Phone input country allowlist",
     control: "countryList",
-    section: "UI",
+    section: "Phone Input",
+  },
+  {
+    jsonPointer: "/usage/limits/email",
+    label: "Email usage limit",
+    control: "usageLimitList",
+    section: "Usage Limit",
+  },
+  {
+    jsonPointer: "/usage/limits/sms",
+    label: "SMS usage limit",
+    control: "usageLimitList",
+    section: "Usage Limit",
+  },
+  {
+    jsonPointer: "/usage/limits/whatsapp",
+    label: "WhatsApp usage limit",
+    control: "usageLimitList",
+    section: "Usage Limit",
+  },
+  {
+    jsonPointer: "/usage/limits/user_export",
+    label: "User export usage limit",
+    control: "usageLimitList",
+    section: "Usage Limit",
+  },
+  {
+    jsonPointer: "/usage/limits/user_import",
+    label: "User import usage limit",
+    control: "usageLimitList",
+    section: "Usage Limit",
+  },
+  {
+    jsonPointer: "/fraud_protection/is_modifiable",
+    label: "Fraud protection is modifiable",
+    control: "boolean",
+    section: "Fraud Protection",
   },
   {
     jsonPointer: "/messaging/custom_sms_provider_disabled",
@@ -98,42 +134,6 @@ export const FIELD_REGISTRY: FieldDef[] = [
     label: "Disable template customization",
     control: "boolean",
     section: "Messaging",
-  },
-  {
-    jsonPointer: "/usage/limits/email",
-    label: "Email usage limit",
-    control: "usageLimitList",
-    section: "Usage Limits",
-  },
-  {
-    jsonPointer: "/usage/limits/sms",
-    label: "SMS usage limit",
-    control: "usageLimitList",
-    section: "Usage Limits",
-  },
-  {
-    jsonPointer: "/usage/limits/whatsapp",
-    label: "WhatsApp usage limit",
-    control: "usageLimitList",
-    section: "Usage Limits",
-  },
-  {
-    jsonPointer: "/usage/limits/user_export",
-    label: "User export usage limit",
-    control: "usageLimitList",
-    section: "Usage Limits",
-  },
-  {
-    jsonPointer: "/usage/limits/user_import",
-    label: "User import usage limit",
-    control: "usageLimitList",
-    section: "Usage Limits",
-  },
-  {
-    jsonPointer: "/fraud_protection/is_modifiable",
-    label: "Fraud protection is modifiable",
-    control: "boolean",
-    section: "Fraud Protection",
   },
   {
     jsonPointer: "/audit_log/retrieval_days",
