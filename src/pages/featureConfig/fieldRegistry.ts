@@ -26,23 +26,6 @@ export interface FieldDef {
   section?: string;
 }
 
-/**
- * Provider keys from `OAuthSSOProvidersFeatureConfig`
- * (pkg/lib/config/feature_identity.go) — one boolean row per provider at
- * `/identity/oauth/providers/<name>/disabled`.
- */
-const OAUTH_PROVIDERS: ReadonlyArray<{ key: string; label: string }> = [
-  { key: "google", label: "Google" },
-  { key: "facebook", label: "Facebook" },
-  { key: "github", label: "GitHub" },
-  { key: "linkedin", label: "LinkedIn" },
-  { key: "azureadv2", label: "Azure AD v2" },
-  { key: "azureadb2c", label: "Azure AD B2C" },
-  { key: "adfs", label: "ADFS" },
-  { key: "apple", label: "Apple" },
-  { key: "wechat", label: "WeChat" },
-];
-
 // Section order: most frequently adjusted settings first (per project owner).
 export const FIELD_REGISTRY: FieldDef[] = [
   {
@@ -153,12 +136,4 @@ export const FIELD_REGISTRY: FieldDef[] = [
     control: "number",
     section: "Hook",
   },
-  ...OAUTH_PROVIDERS.map(
-    (provider): FieldDef => ({
-      jsonPointer: `/identity/oauth/providers/${provider.key}/disabled`,
-      label: `Disable ${provider.label} sign-in`,
-      control: "boolean",
-      section: "Identity — OAuth Providers",
-    })
-  ),
 ];
